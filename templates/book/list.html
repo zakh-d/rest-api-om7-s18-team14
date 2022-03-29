@@ -3,13 +3,24 @@
 {% block title %}All books{% endblock %}
 
 {% block content %}
-    <ul>
-        {% for book in books %}
-        <li>
-            <h3>{{ book.name }}</h3>
-            <p>{{ book.description }}</p>
-        </li>
+    <div class="container">
+        <div class="row">
+            {% for book in books %}
+                <div class="card col-md-3 m-2" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {% for author in book.authors.all %}
+                                {{ author.patronymic }}
+                            {% endfor %}
+                        </h6>
+                        <p class="card-text">{{ book.description | truncatewords:10}}</p>
+                        <a href="#" class="card-link">See more</a>
+                    </div>
+                </div>
 
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}
