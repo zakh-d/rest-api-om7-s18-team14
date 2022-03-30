@@ -1,0 +1,44 @@
+{% extends '_base.html' %}
+
+{% block title %}All orders{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h1>All orders</h1>
+        <hr>
+        <div class="row justify-content-center">
+            <table>
+                <tr>
+                    <th><a href="{% url 'sort_id_orders' %}" class="btn btn-outline-primary"> Sort</th>
+                    <th><a href="{% url 'sort_user_id_orders' %}" class="btn btn-outline-primary"> Sort</th>
+                    <th><a href="{% url 'sort_book_id_orders' %}" class="btn btn-outline-primary"> Sort</th>
+                    <th><a href="{% url 'sort_created_orders' %}" class="btn btn-outline-primary"> Sort</th>
+                    <th><a href="{% url 'sort_end_orders' %}" class="btn btn-outline-primary"> Sort</th>
+                    <th><a href="{% url 'sort_plated_orders' %}" class="btn btn-outline-primary"> Sort</th></th>
+
+                </tr>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Book ID</th>
+                    <th>Created At</th>
+                    <th>End At</th>
+                    <th>Plated End At</th>
+
+                </tr>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.user.id }}</td>
+                        <td><a href="{% url 'book_detail' order.book.id %}" class="btn btn-outline-primary">{{ order.book.pk }}</a></td>
+                        <td>{{ order.created_at }}</td>
+                        <td>{{ order.end_at }}</td>
+                        <td>{{ order.plated_end_at }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
