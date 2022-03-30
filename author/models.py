@@ -1,4 +1,5 @@
 from django.db import models, IntegrityError, DataError
+import book
 
 
 class Author(models.Model):
@@ -18,6 +19,10 @@ class Author(models.Model):
     name = models.CharField(blank=True, max_length=20)
     surname = models.CharField(blank=True, max_length=20)
     patronymic = models.CharField(blank=True, max_length=20)
+
+    def get_books(self):
+        return list(book.models.Book.objects.all().filter(authors__id=self.pk))
+
 
     def __str__(self):
         """
