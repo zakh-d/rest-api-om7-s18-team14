@@ -4,18 +4,16 @@
 
 {% block content %}
     <div class="container">
-        <div class="row">
+        <br>
+        <h1>All Books</h1>
+        <hr>
+        <div class="row justify-content-center">
             {% for book in books %}
                 <div class="card col-md-3 m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">{{ book.name }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            {% for author in book.authors.all %}
-                                {{ author.patronymic }}
-                            {% endfor %}
-                        </h6>
-                        <p class="card-text">{{ book.description | truncatewords:10}}</p>
-                        <a href="#" class="card-link">See more</a>
+                        <p class="card-text text-muted">{{ book.description | truncatewords:10}}</p>
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-outline-primary">See more</a>
                     </div>
                 </div>
 
