@@ -1,0 +1,39 @@
+{% extends '_base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}All books{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <form class="row">
+
+            <div class="form-group col">
+                {{ filter.form.name.label_tag }}
+                {% render_field filter.form.name class="form-control" %}
+            </div>
+            <div class="form-group col">
+                {{ filter.form.authors.label_tag }}
+                {% render_field filter.form.authors class="form-select" %}
+            </div>
+
+            <div class="col d-flex align-items-end">
+                <button type="submit" class="btn btn-success">Search</button>
+            </div>
+        </form>
+        <hr>
+        <div class="row justify-content-center">
+            {% for book in filter.qs %}
+                <div class="card col-md-3 m-2" style="width: 18rem;">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ book.name }}</h3>
+                        <p class="card-text text-muted">{{ book.description | truncatewords:10}}</p>
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-outline-primary">See more</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
