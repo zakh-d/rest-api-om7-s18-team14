@@ -1,5 +1,6 @@
 from django.views import generic
 
+from book.filters import BookFilter
 from book.models import Book
 
 
@@ -27,3 +28,13 @@ class UnorderedBookView(generic.ListView):
 
         return Book.objects.filter(count__gt=0)
 
+
+class FilterBooksView(generic.TemplateView):
+
+    template_name = 'book/filter.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FilterBooksView, self).get_context_data(**kwargs)
+        context['filter'] = BookFilter(self.request.GET, queryset=Book.objects.all())
+        print(context['filter'].form)
+        return context
