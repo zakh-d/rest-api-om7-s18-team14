@@ -19,6 +19,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ author.patronymic }}</h5>
                         <p class="card-text text-muted">{{ author.name }} {{ author.surname }}</p>
+                        <a href="{% url 'author_detail' author.id %}" class="card-link">Show more</a>
                     </div>
                 </div>
             {% endfor %}
