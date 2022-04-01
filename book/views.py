@@ -29,6 +29,22 @@ class UnorderedBookView(generic.ListView):
         return Book.objects.filter(count__gt=0)
 
 
+class SortedBookView(generic.ListView):
+
+    template_name = 'book/sorted.html'
+    context_object_name = 'books'
+
+    def get_queryset(self):
+
+        param = self.request.GET.get('param', '?')
+        sorting = self.request.GET.get('sorting')
+        queryset = Book.objects.order_by(param)
+
+        if sorting == 'asc':
+            return queryset
+        return queryset.reverse()
+
+
 class FilterBooksView(generic.TemplateView):
 
     template_name = 'book/filter.html'
