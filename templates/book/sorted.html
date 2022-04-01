@@ -1,0 +1,54 @@
+{% extends '_base.html' %}
+
+{% block title %}Sorted Books{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <form action="" class="row mt-3">
+
+            <div class="form-group col-2">
+
+                <label for="param-select">Sort:</label>
+                <select class="form-select" name="param" id="param-select">
+                    <option value="id" selected="selected">-------</option>
+                    <option value="name">By Name</option>
+                    <option value="count">By Count</option>
+                </select>
+            </div>
+
+            <div class="form-group col-2">
+
+                <label for="param-select">Ordering:</label>
+                <select class="form-select" name="sorting" id="param-select">
+                    <option value="asc" selected="selected">Ascending</option>
+                    <option value="dec">Descending</option>
+                </select>
+            </div>
+
+            <div class="col d-flex align-items-end">
+                <button type="submit" class="btn btn-success">Sort</button>
+            </div>
+
+
+        </form>
+
+        <hr>
+
+        <div class="list-group mt-3">
+            {% for book in books %}
+            <a href="{% url 'book_detail' book.id %}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ book.name}}</h5>
+                    <small class="text-muted">Available: {{ book.count }}</small>
+                </div>
+                <small class="text-muted">{{ book.description | truncatewords:10 }}</small>
+            </a>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+{% endblock %}
