@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+
+{% block title %}User Books{% endblock %}
+{% block content %}
+
+
+
+    <div class="container">
+        <br>
+        <h1>User {{ user.id }} books: </h1>
+        <hr>
+        <div class="row justify-content-center">
+            {% for book in books %}
+                <div class="card col-md-3 m-2" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'book_detail' book.id %}" class="btn btn-outline-primary"> {{ book.pk }}</a></h5>
+                        <h5 class="card-title">{{ book.name }}</h5>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

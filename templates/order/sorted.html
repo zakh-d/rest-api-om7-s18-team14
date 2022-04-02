@@ -1,0 +1,67 @@
+{% extends '_base.html' %}
+
+{% block title %}Sorted Books{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <form action="" class="row mt-3">
+
+            <div class="form-group col-2">
+
+                <label for="param-select">Sort:</label>
+                <select class="form-select" name="param" id="param-select">
+                    <option value="id" selected="selected">-------</option>
+                    <option value="user">By User id</option>
+                    <option value="book">By Book id</option>
+                    <option value="created_at">By created time</option>
+                    <option value="end_at">By end time</option>
+                    <option value="plated_end_at">By planned return time</option>
+                </select>
+            </div>
+
+            <div class="form-group col-2">
+
+                <label for="param-select">Ordering:</label>
+                <select class="form-select" name="sorting" id="param-select">
+                    <option value="asc" selected="selected">Ascending</option>
+                    <option value="dec">Descending</option>
+                </select>
+            </div>
+
+            <div class="col d-flex align-items-end">
+                <button type="submit" class="btn btn-success">Sort</button>
+            </div>
+
+
+        </form>
+
+        <hr>
+
+<div class="row justify-content-center">
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Book ID</th>
+                    <th>Created At</th>
+                    <th>End At</th>
+                    <th>Plated End At</th>
+
+                </tr>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.user.id }}</td>
+                        <td><a href="{% url 'book_detail' order.book.id %}" class="btn btn-outline-primary">{{ order.book.pk }}</a></td>
+                        <td>{{ order.created_at }}</td>
+                        <td>{{ order.end_at }}</td>
+                        <td>{{ order.plated_end_at }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
