@@ -43,20 +43,15 @@ class OrderDebtorsView(generic.ListView):
         return context
 
 
-class OrderUserBooksView(generic.ListView):
+class OrderUserBooksView(generic.DetailView):  # Використовуємо DetailView, бо він сам дістає юзера по pk
 
+    model = CustomUser
     context_object_name = 'user'
     template_name = 'order/user_books.html'
 
-    def get_queryset(self):
-
-        return CustomUser.objects.get(pk=self.kwargs['pk'])
-
     def get_context_data(self, **kwargs):
         context = super(OrderUserBooksView, self).get_context_data(**kwargs)
-        book_ids = list(Order.objects.filter(user_id=self.kwargs['pk']).values_list('book_id', flat=True))
-
-        context['books'] = Book.objects.filter(pk__in=book_ids)
-        print(context['books'])
-
+        user = self.get_object()
+        books = list(map(lambda order: order.book, user.orders.all()))
+        context['books'] = books
         return context
