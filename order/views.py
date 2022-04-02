@@ -41,7 +41,6 @@ class OrderUserBooksView(generic.DetailView):  # Використовуємо De
 
 
 class OrderDebtorsView(generic.ListView):
-    model = Order
     context_object_name = 'users'
     template_name = 'order/debtors.html'
 
