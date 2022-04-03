@@ -3,19 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Library App{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Library App</span>
-        </div>
-    </nav>
-    {% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-    {% endblock %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Books
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% url 'all_books' as all_books %}
+                        <li>
+                            <a class="dropdown-item {% if request.path == all_books %}active{% endif %}"
+                               href="{{ all_books }}">All Books</a>
+                        </li>
+                        {% url 'filter_books' as filter_books %}
+                        <li>
+                            <a class="dropdown-item {% if request.path == filter_books %}active{% endif %}"
+                               href="{{ filter_books }}">Filter Books</a>
+                        </li>
+                        <li>
+                            {% url 'unordered_books' as free_books %}
+                            <a class="dropdown-item {% if request.path == free_books %}active{% endif %}"
+                               href="{{ free_books }}">Available Books</a>
+                        </li>
+                        <li>
+                            {% url 'sorted_books' as sorted_books %}
+                            <a class="dropdown-item {% if request.path == sorted_books %}active{% endif %}"
+                               href="{{ sorted_books }}">Sorted Books</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Orders
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% url 'all_orders' as all_orders %}
+                        <li>
+                            <a class="dropdown-item {% if request.path == all_orders %}active{% endif %}"
+                               href="{{ all_orders }}">All Orders</a>
+                        </li>
+                        <li>
+                            {% url 'debtors' as debtors %}
+                            <a class="dropdown-item {% if request.path == debtors %}active{% endif %}"
+                               href="{{ debtors }}">Debtors</a>
+                        </li>
+                        <li>
+                            {% url 'sorted_orders' as sorted_orders %}
+                            <a class="dropdown-item {% if request.path == sorted_orders %}active{% endif %}"
+                               href="{{ sorted_orders }}">Sorted Orders</a>
+                        </li>
+                    </ul>
+                </li>
+
+            <li class="vav-item">
+                {% url 'all_authors' as all_authors %}
+                <a href="{{ all_authors }}" class="nav-link {% if request.path == all_authors %}active{% endif %}">
+                Authors
+                </a>
+            </li>
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}
+
+{% endblock %}
 
 </body>
 </html>
