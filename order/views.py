@@ -2,6 +2,8 @@ from django.views import generic
 from django.db.models import F
 from order.models import Order
 from authentication.models import CustomUser
+from datetime import datetime
+import pytz
 
 
 class OrderListView(generic.ListView):
@@ -46,6 +48,6 @@ class OrderDebtorsView(generic.ListView):
 
     def get_queryset(self):
         late_returners = Order.objects.filter(end_at__gte=F('plated_end_at')).values_list("user_id", flat=True)
-        debtors = Order.objects.filter(end_at=None).values_list("user_id", flat=True)
+        debtors = Order.objects.filter(end_at=None).values_list("user_id", flat=True).filter(plated_end_at__gte=datetime.now(tz=pytz.UTC))
 
-        return CustomUser.objects.all().filter(pk__in=late_returners|debtors)
+        return CustomUser.objects.all().filter(pk__in=late_returners|debtors).order_by("pk")
