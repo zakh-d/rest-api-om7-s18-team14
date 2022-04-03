@@ -2,24 +2,26 @@
 
 {% block title %}User Books{% endblock %}
 {% block content %}
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-        <h1 class="display-4 fw-normal"> User id: {{ user.id }}</h1>
-        <p class="lead fw-normal text-muted">{{ user.first_name }} {{ user.last_name }}</p>
+    <div class="col-md-5 p-lg-1 mx-auto my-1 text-center" >
+        <h1 class="display-4 fw-normal"> {{ user.first_name }} {{ user.last_name }}</h1>
         <p class="lead fw-normal text-muted">{{ user.email }}</p>
     </div>
     <div class="text-center">
         <br>
-        <h1>User books: </h1>
+        <h2>User books: </h2>
         <hr>
     </div>
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="position-relative overflow-hidden p-3 p-md-2 m-md-3 text-center bg-light">
         <div class="row justify-content-center">
             {% for book in books %}
                 <div class="card col-md-3 m-2" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title"><a href="{% url 'book_detail' book.id %}" class="btn btn-outline-primary"> {{ book.pk }}</a></h5>
-                        <h5 class="card-title">{{ book.name }}</h5>
-
+                        <h6 class="card-title">Title: <br>{{ book.name }}</h6>
+                        <h6 class="card-title">Authors:</h6>
+                        {% for author in book.authors.all %}
+                            <h6 class="card-title">{{ author.name }} {{ author.patronymic }} {{author.surname }} </h6>
+                        {% endfor %}
+                    <h5 class="card-title"><a href="{% url 'book_detail' book.id %}" class="btn btn-outline-primary">View book</a></h5>
                     </div>
                 </div>
 
