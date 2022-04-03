@@ -4,6 +4,7 @@ from order.models import Order
 from authentication.models import CustomUser
 
 
+
 class OrderListView(generic.ListView):
 
     model = Order
@@ -20,10 +21,20 @@ class SortedOrderView(generic.ListView):
         sorting = self.request.GET.get('sorting')
         queryset = Order.objects.order_by(param)
 
+        for o in queryset:
+            print(o.book)
+
         if sorting == 'asc':
             return queryset
 
         return queryset.reverse()
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(SortedOrderView, self).get_context_data(**kwargs)
+    #     books = list(map(lambda order: order.book, user.orders.all()))
+    #     context['books'] = books
+    #
+    #     return context
 
 
 class OrderUserBooksView(generic.DetailView):  # Використовуємо DetailView, бо він сам дістає юзера по pk

@@ -12,8 +12,10 @@
                 <tr>
                     <th>Order ID</th>
                     <th>User ID</th>
+                    <th>User Name</th>
                     <th>Book ID</th>
                     <th>Created At</th>
+                    <th>Book name</th>
                     <th>End At</th>
                     <th>Plated End At</th>
 
@@ -21,8 +23,10 @@
                 {% for order in orders %}
                     <tr>
                         <td>{{ order.id }}</td>
-                        <td>{{ order.user.id }}</td>
+                        <td><a href="{% url 'user_books' order.user.id %}" class="btn btn-outline-primary">{{ order.user.id }}</a></td>
+                        <td>{{ order.user.first_name }} {{ order.user.last_name }} </td>
                         <td><a href="{% url 'book_detail' order.book.id %}" class="btn btn-outline-primary">{{ order.book.pk }}</a></td>
+                        <td>{{ order.book.name }} </td>
                         <td>{{ order.created_at }}</td>
                         <td>{{ order.end_at }}</td>
                         <td>{{ order.plated_end_at }}</td>
