@@ -1,8 +1,15 @@
 {% extends '_base.html' %}
 
+
 {% block title %}All orders{% endblock %}
 
 {% block content %}
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+
     <div class="container">
         <br>
         <h1>All orders</h1>
@@ -10,19 +17,19 @@
         <div class="row justify-content-center">
             <table>
                 <tr>
-                    <th>Order ID</th>
-                    <th>User ID</th>
-                    <th>Book ID</th>
-                    <th>Created At</th>
-                    <th>End At</th>
-                    <th>Plated End At</th>
+                    <th style="text-align:center"> Order ID</th>
+                    <th style="text-align:center">User Name</th>
+                    <th style="text-align:center">Book name</th>
+                    <th style="text-align:center">Created At</th>
+                    <th style="text-align:center">End At</th>
+                    <th style="text-align:center">Plated End At</th>
 
                 </tr>
                 {% for order in orders %}
                     <tr>
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.user.id }}</td>
-                        <td><a href="{% url 'book_detail' order.book.id %}" class="btn btn-outline-primary">{{ order.book.pk }}</a></td>
+                        <td style="text-align:center">{{ order.id }}</td>
+                        <td><a href="{% url 'user_books' order.user.id %}" class="link-primary">{{ order.user.first_name }} {{ order.user.last_name }}</a></td>
+                        <td><a href="{% url 'book_detail' order.book.id %}" class="link-primary">{{ order.book.name | truncatewords:5 }}</a></td>
                         <td>{{ order.created_at }}</td>
                         <td>{{ order.end_at }}</td>
                         <td>{{ order.plated_end_at }}</td>

@@ -11,9 +11,8 @@
             {% for user in users %}
                 <div class="card col-md-3 m-2" style="width: 18rem;">
                     <div class="card-body">
-                        <h3 class="card-title">id: {{ user.id }} </h3>
-                        <p class="card-text text-muted">First name: {{ user.first_name}}</p>
-                        <p class="card-text text-muted">Last name: {{ user.last_name}}</p>
+                        <p class="card-title">id: {{ user.id }}  </p>
+                        <p class="card-text text-muted">User name: <a href="{% url 'user_books' user.id %}" class="primary">{{ user.first_name }} {{ user.last_name }}</a></p>
                     </div>
                 </div>
 
