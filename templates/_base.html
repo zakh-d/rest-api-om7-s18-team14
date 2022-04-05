@@ -74,12 +74,19 @@
                     </ul>
                 </li>
 
-            <li class="vav-item">
-                {% url 'all_authors' as all_authors %}
-                <a href="{{ all_authors }}" class="nav-link {% if request.path == all_authors %}active{% endif %}">
-                Authors
-                </a>
-            </li>
+                <li class="nav-item">
+                    {% url 'all_authors' as all_authors %}
+                    <a href="{{ all_authors }}" class="nav-link {% if request.path == all_authors %}active{% endif %}">
+                        Authors
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    {% url 'create_user' as create_user %}
+                    <a href="{{ create_user }}" class="nav-link {% if request.path == create_user %}active{% endif %}">
+                        Create User
+                    </a>
+                </li>
 
 
             </ul>
