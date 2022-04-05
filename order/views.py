@@ -1,5 +1,7 @@
+from django.urls import reverse_lazy
 from django.views import generic
 from django.db.models import F
+from order.forms import OrderCreationForm
 from order.models import Order
 from authentication.models import CustomUser
 from datetime import datetime
@@ -51,3 +53,12 @@ class OrderDebtorsView(generic.ListView):
         debtors = Order.objects.filter(end_at=None).values_list("user_id", flat=True).filter(plated_end_at__gte=datetime.now(tz=pytz.UTC))
 
         return CustomUser.objects.all().filter(pk__in=late_returners|debtors).order_by("pk")
+
+
+class OrderCreationView(generic.CreateView):
+
+    model = Order
+    form_class = OrderCreationForm
+    template_name = 'order/create.html'
+    extra_context = {'title': 'Create Order'}
+    success_url = reverse_lazy('all_orders')
