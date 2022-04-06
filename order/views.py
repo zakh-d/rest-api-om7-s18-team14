@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views import generic
 from django.db.models import F
-from order.forms import OrderCreationForm
+from order.forms import OrderCreationForm, OrderUpdateForm
 from order.models import Order
 from authentication.models import CustomUser
 from datetime import datetime
@@ -60,5 +60,12 @@ class OrderCreationView(generic.CreateView):
     model = Order
     form_class = OrderCreationForm
     template_name = 'order/create.html'
-    extra_context = {'title': 'Create Order'}
+    success_url = reverse_lazy('all_orders')
+
+
+class OrderUpdateView(generic.UpdateView):
+
+    model = Order
+    form_class = OrderUpdateForm
+    template_name = 'order/update.html'
     success_url = reverse_lazy('all_orders')
