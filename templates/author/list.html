@@ -7,6 +7,12 @@
         <br>
         <h1>All Authors</h1>
         <hr>
+        <div class="row justify-content-center"> 
+            {% url 'create_author' as create_author %}
+            <a href="{{ create_author }}" class="nav-link {% if request.path == create_author %}active{% endif %}">
+                Create Author
+            </a>
+        </div>
         <div class="row justify-content-center">
             {% for author in authors %}
                 <div class="card col-md-3 m-2" style="width: 18rem;">
