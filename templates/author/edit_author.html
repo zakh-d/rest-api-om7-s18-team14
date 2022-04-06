@@ -1,0 +1,13 @@
+{% extends 'author/list.html' %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h1>Edit author</h1>
+        <hr>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-3">Save</button>
+        </form>
+    </div>
+{% endblock %}
