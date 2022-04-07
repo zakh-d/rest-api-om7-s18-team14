@@ -67,3 +67,15 @@ def create_book(request):
     else:
         form = BookForm()
     return render(request, 'book/create_book.html', {'form': form})
+
+
+def edit_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            book = form.save()
+            return redirect('book_detail', pk=book.pk)
+    else:
+        form = BookForm(instance=book)
+    return render(request, 'book/edit_book.html', {'form': form, 'pk': pk})
