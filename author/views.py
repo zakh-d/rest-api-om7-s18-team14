@@ -1,5 +1,5 @@
 from django.views import generic
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from author.models import Author
 from .forms import AuthorCreationForm
@@ -18,8 +18,8 @@ class AuthorDetailView(generic.DetailView):
     context_object_name = "author"
     template_name = 'author/detail.html'
 
+
 def create_author(request):
-    # form = AuthorCreationForm()
     if request.method == "POST":
         form = AuthorCreationForm(request.POST)
         if form.is_valid():
@@ -29,3 +29,15 @@ def create_author(request):
         form = AuthorCreationForm()
 
     return render(request, 'author/create_author.html', {'form': form})
+
+
+def edit_author(request, pk):
+    author = get_object_or_404(Author, pk=pk)
+    if request.method == "POST":
+        form = AuthorCreationForm(request.POST, instance=author)
+        if form.is_valid():
+            author = form.save()
+            return redirect('author_detail', pk=author.pk)
+    else:
+        form = AuthorCreationForm(instance=author)
+    return render(request, 'author/edit_author.html', {'form': form, 'pk': pk})
