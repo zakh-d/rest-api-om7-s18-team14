@@ -1,7 +1,9 @@
 from django.views import generic
+from django.shortcuts import render, redirect, get_object_or_404
 
 from book.filters import BookFilter
 from book.models import Book
+from book.forms import BookForm
 
 
 class BookListView(generic.ListView):
@@ -54,3 +56,14 @@ class FilterBooksView(generic.TemplateView):
         context['filter'] = BookFilter(self.request.GET, queryset=Book.objects.all())
         print(context['filter'].form)
         return context
+
+
+def create_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            book = form.save()
+            return redirect('book_detail', pk=book.pk)
+    else:
+        form = BookForm()
+    return render(request, 'book/create_book.html', {'form': form})
