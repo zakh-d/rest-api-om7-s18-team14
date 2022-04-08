@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # 3rd party apps
     'django_filters',
     'widget_tweaks',
+    'rest_framework',
 
     # local apps
     'authentication',
