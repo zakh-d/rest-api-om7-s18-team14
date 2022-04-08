@@ -2,7 +2,7 @@ from django.views import generic
 from rest_framework import viewsets
 from authentication.forms import CustomUserCreationForm, CustomUserUpdateForm
 from authentication.models import CustomUser
-from authentication.serializers import UserSerializer
+from authentication.serializers import CreateUserSerializer, UpdateUserSerializer, RetrieveUserSerializer
 
 
 class CustomUserCreationView(generic.CreateView):
@@ -26,5 +26,11 @@ class CustomUserUpdateView(generic.UpdateView):
 class CustomUserAPIView(viewsets.ModelViewSet):
 
     queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
 
+    def get_serializer_class(self):
+
+        if self.action in ('list', 'retrieve'):
+            return RetrieveUserSerializer
+        if self.action == 'create':
+            return CreateUserSerializer
+        return UpdateUserSerializer
