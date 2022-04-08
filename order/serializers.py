@@ -1,9 +1,14 @@
 from rest_framework import serializers
 
+from authentication.serializers import RetrieveUserSerializer
+from book.serializers import BookSerializer
 from order.models import Order
 
 
 class RetrieveOrderSerializer(serializers.ModelSerializer):
+
+    user = RetrieveUserSerializer()
+    book = BookSerializer()
 
     class Meta:
 
