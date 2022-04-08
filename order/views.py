@@ -1,10 +1,14 @@
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 from django.db.models import F
+from rest_framework.response import Response
+
 from order.forms import OrderCreationForm, OrderUpdateForm
 from order.models import Order
 from authentication.models import CustomUser
-from rest_framework import viewsets
+from rest_framework import viewsets, views
 from datetime import datetime
 import pytz
 from order.serializers import CreateOrderSerializer, UpdateOrderSerializer, RetrieveOrderSerializer
@@ -86,3 +90,15 @@ class OrdersAPIView(viewsets.ModelViewSet):
         if self.action == 'create':
             return CreateOrderSerializer
         return UpdateOrderSerializer
+
+
+class DoesOrderBelongsToUserAPIView(views.APIView):
+
+    def get(self, request, user_id, order_id):
+        order = get_object_or_404(Order, pk=order_id)
+        user = get_object_or_404(CustomUser, pk=user_id)
+
+        if not order.user == user:
+            raise Http404
+        serializer = RetrieveOrderSerializer(order)
+        return Response(serializer.data)
