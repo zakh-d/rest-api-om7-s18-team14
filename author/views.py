@@ -5,7 +5,7 @@ from author.models import Author
 from .forms import AuthorCreationForm
 
 from rest_framework import viewsets
-from author.serializers import CreateAuthorSerializer, UpdateAuthorSerializer, RetrieveAuthorSerializer
+from author.serializers import AuthorSerializer
 
 
 class AuthorListView(generic.ListView):
@@ -51,9 +51,4 @@ class AuthorAPIView(viewsets.ModelViewSet):
     queryset = Author.objects.all()
 
     def get_serializer_class(self):
-
-        if self.action in ('list', 'retrieve'):
-            return RetrieveAuthorSerializer
-        if self.action == 'create':
-            return CreateAuthorSerializer
-        return UpdateAuthorSerializer
+        return AuthorSerializer
