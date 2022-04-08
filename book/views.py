@@ -7,7 +7,7 @@ from book.forms import BookForm
 
 
 from rest_framework import viewsets
-from book.serializers import CreateBookSerializer, UpdateBookSerializer, RetrieveBookSerializer
+from book.serializers import BookSerializer
 
 
 class BookListView(generic.ListView):
@@ -87,7 +87,6 @@ def edit_book(request, pk):
 
 class BookAPIView(viewsets.ModelViewSet):
     queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
-    def get_serializer_class(self):
-        return BookSerializer
 
