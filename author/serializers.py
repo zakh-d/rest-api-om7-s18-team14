@@ -16,6 +16,7 @@ class UpdateAuthorSerializer(serializers.ModelSerializer):
 
         model = Author
         fields = ('id', 'name', 'surname', 'patronymic')
+        exclude_fields = ('id',)
 
 
 class RetrieveAuthorSerializer(serializers.ModelSerializer):
