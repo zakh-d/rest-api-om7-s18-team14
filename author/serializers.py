@@ -7,7 +7,7 @@ class CreateAuthorSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Author
-        fields = ('name', 'surname', 'patronymic')
+        fields = ('id', 'name', 'surname', 'patronymic')
 
 
 class UpdateAuthorSerializer(serializers.ModelSerializer):
@@ -15,7 +15,7 @@ class UpdateAuthorSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Author
-        fields = ('name', 'surname', 'patronymic')
+        fields = ('id', 'name', 'surname', 'patronymic')
 
 
 class RetrieveAuthorSerializer(serializers.ModelSerializer):
@@ -23,4 +23,4 @@ class RetrieveAuthorSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Author
-        fields = ('name', 'surname', 'patronymic')
+        fields = ('id', 'name', 'surname', 'patronymic')
