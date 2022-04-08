@@ -47,8 +47,5 @@ def edit_author(request, pk):
 
 
 class AuthorAPIView(viewsets.ModelViewSet):
-
     queryset = Author.objects.all()
-
-    def get_serializer_class(self):
-        return AuthorSerializer
+    serializer_class = AuthorSerializer
