@@ -1,8 +1,10 @@
+from django.shortcuts import get_object_or_404
 from django.views import generic
 from rest_framework import viewsets
 from authentication.forms import CustomUserCreationForm, CustomUserUpdateForm
 from authentication.models import CustomUser
 from authentication.serializers import CreateUserSerializer, UpdateUserSerializer, RetrieveUserSerializer
+from order.serializers import RetrieveOrderSerializer
 
 
 class CustomUserCreationView(generic.CreateView):
@@ -34,3 +36,13 @@ class CustomUserAPIView(viewsets.ModelViewSet):
         if self.action == 'create':
             return CreateUserSerializer
         return UpdateUserSerializer
+
+
+class CustomUserOrdersAPIView(viewsets.ReadOnlyModelViewSet):
+
+    serializer_class = RetrieveOrderSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        user = get_object_or_404(CustomUser, pk=user_id)
+        return user.orders.all()
