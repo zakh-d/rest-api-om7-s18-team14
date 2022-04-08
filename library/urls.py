@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from authentication.urls import router as user_api_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,4 +23,5 @@ urlpatterns = [
     path('author/', include('author.urls')),
     path('auth/', include('authentication.urls')),
     path('order/', include('order.urls')),
+    path('api/v1/users/', include(user_api_router.urls)),
 ]
