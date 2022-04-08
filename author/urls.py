@@ -1,5 +1,11 @@
 from django.urls import path
-from author.views import AuthorListView, AuthorDetailView, create_author, edit_author
+from author.views import AuthorListView, AuthorDetailView, create_author, edit_author, AuthorAPIView
+from rest_framework.routers import SimpleRouter
+
+router = SimpleRouter()
+router.register('', AuthorAPIView)
+
+
 
 urlpatterns = [
     path('all/', AuthorListView.as_view(), name="all_authors"),

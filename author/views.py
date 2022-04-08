@@ -4,6 +4,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from author.models import Author
 from .forms import AuthorCreationForm
 
+from rest_framework import viewsets
+from author.serializers import AuthorSerializer
+
 
 class AuthorListView(generic.ListView):
 
@@ -41,3 +44,8 @@ def edit_author(request, pk):
     else:
         form = AuthorCreationForm(instance=author)
     return render(request, 'author/edit_author.html', {'form': form, 'pk': pk})
+
+
+class AuthorAPIView(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer

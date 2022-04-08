@@ -6,6 +6,10 @@ from book.models import Book
 from book.forms import BookForm
 
 
+from rest_framework import viewsets
+from book.serializers import BookSerializer
+
+
 class BookListView(generic.ListView):
 
     model = Book
@@ -79,3 +83,10 @@ def edit_book(request, pk):
     else:
         form = BookForm(instance=book)
     return render(request, 'book/edit_book.html', {'form': form, 'pk': pk})
+
+
+class BookAPIView(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+

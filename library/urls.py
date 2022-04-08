@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from authentication.urls import router as user_api_router
 from order.urls import router as order_api_router
+from author.urls import router as author_api_router
+from book.urls import router as book_api_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +28,6 @@ urlpatterns = [
     path('order/', include('order.urls')),
     path('api/v1/users/', include(user_api_router.urls)),
     path('api/v1/orders/', include(order_api_router.urls)),
+    path('api/v1/authors/', include(author_api_router.urls)),
+    path('api/v1/books/', include(book_api_router.urls))
 ]
