@@ -4,8 +4,10 @@ from django.db.models import F
 from order.forms import OrderCreationForm, OrderUpdateForm
 from order.models import Order
 from authentication.models import CustomUser
+from rest_framework import viewsets
 from datetime import datetime
 import pytz
+from order.serializers import CreateOrderSerializer, UpdateOrderSerializer, RetrieveOrderSerializer
 
 
 class OrderListView(generic.ListView):
@@ -50,9 +52,11 @@ class OrderDebtorsView(generic.ListView):
 
     def get_queryset(self):
         late_returners = Order.objects.filter(end_at__gte=F('plated_end_at')).values_list("user_id", flat=True)
-        debtors = Order.objects.filter(end_at=None).values_list("user_id", flat=True).filter(plated_end_at__gte=datetime.now(tz=pytz.UTC))
+        debtors = Order.objects.filter(end_at=None).values_list("user_id", flat=True).filter(
+            plated_end_at__gte=datetime.now(tz=pytz.UTC)
+        )
 
-        return CustomUser.objects.all().filter(pk__in=late_returners|debtors).order_by("pk")
+        return CustomUser.objects.all().filter(pk__in=late_returners | debtors).order_by("pk")
 
 
 class OrderCreationView(generic.CreateView):
@@ -69,3 +73,16 @@ class OrderUpdateView(generic.UpdateView):
     form_class = OrderUpdateForm
     template_name = 'order/update.html'
     success_url = reverse_lazy('all_orders')
+
+
+class OrdersAPIView(viewsets.ModelViewSet):
+
+    queryset = Order.objects.all()
+
+    def get_serializer_class(self):
+
+        if self.action in ('list', 'retrieve'):
+            return RetrieveOrderSerializer
+        if self.action == 'create':
+            return CreateOrderSerializer
+        return UpdateOrderSerializer

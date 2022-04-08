@@ -1,6 +1,11 @@
 from django.urls import path
+from rest_framework.routers import SimpleRouter
+
 from order.views import OrderCreationView, OrderDebtorsView, OrderUserBooksView, SortedOrderView, OrderListView, \
-    OrderUpdateView
+    OrderUpdateView, OrdersAPIView
+
+router = SimpleRouter()
+router.register('', OrdersAPIView)
 
 urlpatterns = [
     path('all/', OrderListView.as_view(), name="all_orders"),
