@@ -27,6 +27,11 @@ class CustomUserUpdateView(generic.UpdateView):
 
 class CustomUserAPIView(viewsets.ModelViewSet):
 
+    """
+        An API endpoint for managing User model
+
+    """
+
     queryset = CustomUser.objects.all()
 
     def get_serializer_class(self):
@@ -39,6 +44,10 @@ class CustomUserAPIView(viewsets.ModelViewSet):
 
 
 class CustomUserOrdersAPIView(viewsets.ReadOnlyModelViewSet):
+
+    """
+        An API endpoint for getting orders related to particular user
+    """
 
     serializer_class = RetrieveOrderSerializer
 
