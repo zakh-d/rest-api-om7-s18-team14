@@ -1,23 +1,25 @@
 from rest_framework import serializers
 from book.models import Book
-from author.serializers import AuthorSerializer
+from author.serializers import AuthorListSerializer
 
 
-class BookSerializer(serializers.ModelSerializer):
+class BookListSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Book
         fields = ('id', 'name', 'description', 'count')
 
 
-class RetrieveBookSerializer(serializers.ModelSerializer):
-    authors = AuthorSerializer(many=True)
+class BookCreateUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ('id', 'name', 'description', 'count', 'authors')
+        fields = ('name', 'description', 'count', 'authors')
 
 
-class CreateUpdateBookSerializer(serializers.ModelSerializer):
+class BookRetrieveSerializer(serializers.ModelSerializer):
+    authors = AuthorListSerializer
+
     class Meta:
         model = Book
         fields = ('id', 'name', 'description', 'count', 'authors')
