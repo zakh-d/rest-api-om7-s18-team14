@@ -92,13 +92,3 @@ class OrdersAPIView(viewsets.ModelViewSet):
         return UpdateOrderSerializer
 
 
-class DoesOrderBelongsToUserAPIView(views.APIView):
-
-    def get(self, request, user_id, order_id):
-        order = get_object_or_404(Order, pk=order_id)
-        user = get_object_or_404(CustomUser, pk=user_id)
-
-        if not order.user == user:
-            raise Http404
-        serializer = RetrieveOrderSerializer(order)
-        return Response(serializer.data)
