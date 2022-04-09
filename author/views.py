@@ -5,7 +5,7 @@ from author.models import Author
 from .forms import AuthorCreationForm
 
 from rest_framework import viewsets
-from author.serializers import AuthorSerializer
+from author.serializers import AuthorSerializer, AuthorWithBooksSerializer
 
 
 class AuthorListView(generic.ListView):
@@ -48,4 +48,13 @@ def edit_author(request, pk):
 
 class AuthorAPIView(viewsets.ModelViewSet):
     queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
+
+    def get_serializer_class(self):
+
+        if self.action in ('get', 'retrieve'):
+            return AuthorWithBooksSerializer
+        return AuthorSerializer
+
+
+
+
