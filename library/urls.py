@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_swagger.views import get_swagger_view
+
 from authentication.urls import router as user_api_router
 from order.urls import router as order_api_router
 from author.urls import router as author_api_router
 from book.urls import router as book_api_router
+
+schema_view = get_swagger_view(title="Library API")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +33,6 @@ urlpatterns = [
     path('api/v1/users/', include(user_api_router.urls)),
     path('api/v1/orders/', include(order_api_router.urls)),
     path('api/v1/authors/', include(author_api_router.urls)),
-    path('api/v1/books/', include(book_api_router.urls))
+    path('api/v1/books/', include(book_api_router.urls)),
+    path('docs/', schema_view)
 ]
