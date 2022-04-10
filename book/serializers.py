@@ -14,11 +14,12 @@ class BookCreateUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ('name', 'description', 'count', 'authors')
+        fields = ('id', 'name', 'description', 'count', 'authors')
 
 
 class BookRetrieveSerializer(serializers.ModelSerializer):
-    authors = AuthorListSerializer
+
+    authors = AuthorListSerializer(many=True)
 
     class Meta:
         model = Book
