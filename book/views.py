@@ -89,7 +89,6 @@ class BookAPIView(viewsets.ModelViewSet):
     queryset = Book.objects.all()
 
     def get_serializer_class(self):
-        print(self.action)
         if self.action == 'retrieve':
             return RetrieveBookSerializer
         if self.action in ('create', 'update'):

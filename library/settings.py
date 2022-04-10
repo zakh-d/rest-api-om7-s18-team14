@@ -24,8 +24,11 @@ SECRET_KEY = 'q!o9ybrsa@o8a)fj2&d7qrbtnbvkej5mud(!k)*9vspug62$xh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000'
+]
 # Application definition
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'rest_framework',
     'rest_framework_swagger',
+    'corsheaders',
 
     # local apps
     'authentication',
@@ -53,6 +57,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
