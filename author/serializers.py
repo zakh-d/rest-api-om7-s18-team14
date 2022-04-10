@@ -29,7 +29,7 @@ class AuthorCreateUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Author
-        fields = ('name', 'surname', 'patronymic')
+        fields = ('id', 'name', 'surname', 'patronymic')
 
 
 
